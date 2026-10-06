@@ -22,10 +22,10 @@ def parse(line):
           current = []
       else:
         current.append(char)
-		elif char = q:
-			q = None
-		else:
-			current.append(char)
+    elif char in('"', "'"):
+        q = None
+    else:
+        current.append(char)
   if q is not None:
     raise ValueError("Unclosed quote")
   if current:
@@ -36,13 +36,15 @@ def parse(line):
 
 def cmd_ls(args):
   """Команда заглушка команды ls, выводит аргументы"""
-  return(f"ls with arguments {args}")
+  print(f"ls with arguments {args}")
+  return None
 
 def cmd_cd(args):
   """Команда заглушка команды cd, выводит аргументы"""
-  return(f"cd with arguments {args}")
+  print(f"cd with arguments {args}")
+  return None
 
-def cmd_exit(args):
+def cmd_exit():
   """команда выхода из эмулятора"""
   return True
 
@@ -62,8 +64,8 @@ def prog(line):
     True при завершении, None иначе."""
   try:
     cmd, args = parse(line)
-  except ValueError:
-    print(f"parse error: {ValueError}")
+  except ValueError as e:
+    print(f"parse error: {e}")
     return None
   if cmd is None:
     return None
@@ -74,15 +76,15 @@ def prog(line):
   return hand(args)
 
 def repl():
-	"""Запускает интерактивный цикл"""
-	pr = prompt()
-	while True:
-		try:
-			line = input(pr)
-		except EOFError:
-			break
-		if prog(line):
-			break
+    """Запускает интерактивный цикл"""
+    pr = prompt()
+    while True:
+        try:
+            line = input(pr)
+        except EOFError:
+            break
+        if prog(line):
+            break
 
 if __name__ == "__main__":
-	repl()
+    repl()
