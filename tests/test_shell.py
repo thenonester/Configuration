@@ -1,5 +1,5 @@
 """Тесты эмулятора"""
-import uittest
+import unittest
 from src.shell import parse, prog
 
 class Testpars(unittest.TestCase):
@@ -7,7 +7,7 @@ class Testpars(unittest.TestCase):
 
   def test_simple(self):
     """проверка простой команды"""
-    cmd args = parse("ls lm")
+    cmd, args = parse("ls lm")
     self.assertEqual(cmd, "ls")
     self.assertEqual(args, ["lm"])
 
@@ -73,8 +73,7 @@ class Testprog(unittest.TestCase):
 
   def test_exit(self):
     """Проверка команды exit"""
-    result = prog("exit")
-    self.assertTrue(result)
+    self.assertTrue(prog("exit"))
 
   def test_ls(self):
     """Проверка команды ls"""
@@ -91,5 +90,5 @@ class Testprog(unittest.TestCase):
     result = prog("sl 'll")
     self.assertIsNone(result)
 
-__name__ == "__main__":
-unittest.main()
+if __name__ == "__main__":
+  unittest.main()
